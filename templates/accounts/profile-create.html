@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section id="create-profile">
+    <h1>Създаване на профил</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn">Запази профила</button>
+    </form>
+</section>
+{% endblock %}

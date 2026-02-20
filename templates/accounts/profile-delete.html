@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section id="delete-profile">
+    <h1>Изтриване на профил</h1>
+    <p>Сигурни ли сте, че искате да изтриете профила си? Това действие е необратимо!</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn-danger">Да, изтрий профила</button>
+        <a href="{% url 'profile-details' %}">Отказ</a>
+    </form>
+</section>
+{% endblock %}
