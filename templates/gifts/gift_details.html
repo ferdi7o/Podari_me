@@ -1,23 +1,38 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<section id="gift-details">
-    <div class="details-container">
-        <img src="{{ gift.image_url }}" alt="{{ gift.title }}">
-        <h1>{{ gift.title }}</h1>
-        <p class="category">Категория: {{ gift.category }}</p>
-        <p class="description">{{ gift.description }}</p>
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg">
+                {% if gift.image_url %}
+                    <img src="{{ gift.image_url }}" class="card-img-top" alt="{{ gift.title }}" style="max-height: 400px; object-fit: cover;">
+                {% else %}
+                    <div class="card-img-top bg-secondary text-white d-flex align-items-center justify-content-center" style="height: 300px;">
+                        <span class="display-1">🎁</span>
+                    </div>
+                {% endif %}
+                <div class="card-body">
+                    <h1 class="card-title display-4">{{ gift.title }}</h1>
+                    <h5 class="card-subtitle mb-3 text-muted">Категория: {{ gift.category }}</h5>
+                    <p class="card-text lead">{{ gift.description }}</p>
 
-        <div class="tags">
-            {% for tag in gift.tags.all %}
-                <span class="tag">#{{ tag.name }}</span>
-            {% endfor %}
-        </div>
+                    <div class="mb-4">
+                        {% for tag in gift.tags.all %}
+                            <span class="badge bg-info text-dark me-1">#{{ tag.name }}</span>
+                        {% endfor %}
+                    </div>
 
-        <div class="gift-actions">
-            <a href="{% url 'gift-edit' gift.pk %}" class="btn-edit">Редактирай</a>
-            <a href="{% url 'gift-delete' gift.pk %}" class="btn-delete">Изтрий</a>
+                    <div class="d-flex justify-content-between align-items-center mt-4">
+                        <div class="btn-group" role="group">
+                            <a href="{% url 'gift-edit' gift.pk %}" class="btn btn-warning">Редактирай</a>
+                            <a href="{% url 'gift-delete' gift.pk %}" class="btn btn-danger">Изтрий</a>
+                        </div>
+                        <a href="{% url 'dashboard' %}" class="btn btn-outline-secondary">Назад към обявите</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</section>
+</div>
 {% endblock %}

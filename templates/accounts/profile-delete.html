@@ -1,13 +1,25 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<section id="delete-profile">
-    <h1>Изтриване на профил</h1>
-    <p>Сигурни ли сте, че искате да изтриете профила си? Това действие е необратимо!</p>
-    <form method="post">
-        {% csrf_token %}
-        <button type="submit" class="btn-danger">Да, изтрий профила</button>
-        <a href="{% url 'profile-details' %}">Отказ</a>
-    </form>
-</section>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card border-danger shadow-sm">
+                <div class="card-header bg-danger text-white">
+                    <h3 class="mb-0">Изтриване на профил</h3>
+                </div>
+                <div class="card-body text-center">
+                    <p class="card-text lead">Сигурни ли сте, че искате да изтриете профила си? Това действие е необратимо!</p>
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="d-grid gap-2 d-md-block mt-4">
+                            <button type="submit" class="btn btn-danger btn-lg">Да, изтрий профила</button>
+                            <a href="{% url 'profile-details' %}" class="btn btn-secondary btn-lg">Отказ</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

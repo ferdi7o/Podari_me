@@ -1,30 +1,50 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<section id="profile-details">
-    <div class="profile-header">
-        {% if profile.profile_picture %}
-            <img src="{{ profile.profile_picture }}" alt="Profil Foto">
-        {% endif %}
-        <h1>{{ profile.first_name }} {{ profile.last_name }}</h1>
-        <p>Град: {{ profile.city }}</p>
-        <p>Контакт: {{ profile.email }}</p>
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h2 class="mb-0">Моят Профил</h2>
+                </div>
+                <div class="card-body text-center">
+                    {% if profile.profile_picture %}
+                        <img src="{{ profile.profile_picture }}" alt="Profil Foto" class="rounded-circle mb-3" style="width: 150px; height: 150px; object-fit: cover;">
+                    {% else %}
+                        <div class="rounded-circle bg-secondary text-white d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 150px; height: 150px; font-size: 3rem;">
+                            {{ profile.first_name|first }}{{ profile.last_name|first }}
+                        </div>
+                    {% endif %}
 
-        <div class="actions">
-            <a href="{% url 'profile-edit' %}" class="btn-edit">Редактирай Профила</a>
-            <a href="{% url 'profile-delete' %}" class="btn-delete">Изтрий Профила</a>
+                    <h3 class="card-title">{{ profile.first_name }} {{ profile.last_name }}</h3>
+                    <p class="card-text text-muted">{{ profile.city }}</p>
+                    <p class="card-text"><i class="bi bi-envelope"></i> {{ profile.email }}</p>
+
+                    <div class="mt-4">
+                        <a href="{% url 'profile-edit' %}" class="btn btn-warning me-2">Редактирай Профила</a>
+                        <a href="{% url 'profile-delete' %}" class="btn btn-danger">Изтрий Профила</a>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="mb-3">Моите обяви</h3>
+            <div class="list-group">
+                {% for gift in profile.gifts.all %}
+                    <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                        <div>
+                            <h5 class="mb-1">{{ gift.title }}</h5>
+                            <small class="text-muted">{{ gift.category }}</small>
+                        </div>
+                        <span class="badge bg-primary rounded-pill">Виж</span>
+                    </a>
+                {% empty %}
+                    <div class="alert alert-info" role="alert">
+                        Все още не сте създали обяви. <a href="{% url 'gift-create' %}" class="alert-link">Създайте първата си обява сега!</a>
+                    </div>
+                {% endfor %}
+            </div>
         </div>
     </div>
-
-    <h2>Моите обяви</h2>
-    <div class="my-gifts">
-        {% for gift in profile.gifts.all %}
-            <div class="gift-item">
-                <p>{{ gift.title }} - <strong>{{ gift.category }}</strong></p>
-            </div>
-        {% empty %}
-            <p>Все още не сте създали обяви.</p>
-        {% endfor %}
-    </div>
-</section>
+</div>
 {% endblock %}

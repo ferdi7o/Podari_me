@@ -1,12 +1,27 @@
-<nav>
-    <a href="{% url 'home' %}">Подари Ме!</a>
-    <ul>
-        {% if profile %}
-            <li><a href="{% url 'dashboard' %}">Обяви</a></li>
-            <li><a href="{% url 'gift-create' %}">Създай Обява</a></li>
-            <li><a href="{% url 'profile-details' %}">Моят профил</a></li>
-        {% else %}
-            <li><a href="{% url 'profile-create' %}">Създай Профил</a></li>
-        {% endif %}
-    </ul>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'home' %}">Подари Ме! 🎁</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                {% if profile %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'dashboard' %}">Обяви</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'gift-create' %}">Създай Обява</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'profile-details' %}">Моят профил</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'profile-create' %}">Създай Профил</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
 </nav>

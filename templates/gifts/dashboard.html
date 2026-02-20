@@ -1,24 +1,43 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<section id="dashboard">
-    <h1>Обяви</h1>
-    <div class="gift-list">
+<div class="container mt-4">
+    <h1 class="mb-4 text-center">Обяви</h1>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
         {% for gift in gifts %}
-            <div class="gift-card">
-                <img src="{{ gift.image_url }}" alt="{{ gift.title }}">
-                <h3>{{ gift.title }}</h3>
-                <p>{{ gift.category }}</p>
-
-                {% if gift.status_gift %}
-                    <span class="status-badge-done">Подарен</span>
-                {% else %}
-                    <a href="{% url 'gift-details' gift.pk %}" class="btn">Детайли</a>
-                {% endif %}
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    {% if gift.image_url %}
+                        <img src="{{ gift.image_url }}" class="card-img-top" alt="{{ gift.title }}" style="height: 200px; object-fit: cover;">
+                    {% else %}
+                        <div class="card-img-top bg-secondary text-white d-flex align-items-center justify-content-center" style="height: 200px;">
+                            <span class="display-4">🎁</span>
+                        </div>
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ gift.title }}</h5>
+                        <p class="card-text text-muted">{{ gift.category }}</p>
+                        <p class="card-text">{{ gift.description|truncatewords:20 }}</p>
+                    </div>
+                    <div class="card-footer bg-transparent border-top-0">
+                        {% if gift.status_gift %}
+                            <span class="badge bg-success w-100 py-2">Подарен</span>
+                        {% else %}
+                            <a href="{% url 'gift-details' gift.pk %}" class="btn btn-primary w-100">Детайли</a>
+                        {% endif %}
+                    </div>
+                </div>
             </div>
         {% empty %}
-            <p>Все още няма създадени обяви. Създай първия ти!</p>
+            <div class="col-12 text-center">
+                <div class="alert alert-info" role="alert">
+                    <h4 class="alert-heading">Няма намерени обяви!</h4>
+                    <p>Все още няма създадени обяви. Бъдете първият, който ще подари нещо!</p>
+                    <hr>
+                    <a href="{% url 'gift-create' %}" class="btn btn-primary">Създай обява</a>
+                </div>
+            </div>
         {% endfor %}
     </div>
-</section>
+</div>
 {% endblock %}
