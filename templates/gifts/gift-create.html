@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section id="create-gift">
+    <h1>Създай Обява</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn-submit">Качи обявата</button>
+    </form>
+</section>
+{% endblock %}

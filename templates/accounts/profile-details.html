@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section id="profile-details">
+    <div class="profile-header">
+        {% if profile.profile_picture %}
+            <img src="{{ profile.profile_picture }}" alt="Profil Foto">
+        {% endif %}
+        <h1>{{ profile.first_name }} {{ profile.last_name }}</h1>
+        <p>Град: {{ profile.city }}</p>
+        <p>Контакт: {{ profile.email }}</p>
+
+        <div class="actions">
+            <a href="{% url 'profile-edit' %}" class="btn-edit">Редактирай Профила</a>
+            <a href="{% url 'profile-delete' %}" class="btn-delete">Изтрий Профила</a>
+        </div>
+    </div>
+
+    <h2>Моите обяви</h2>
+    <div class="my-gifts">
+        {% for gift in profile.gifts.all %}
+            <div class="gift-item">
+                <p>{{ gift.title }} - <strong>{{ gift.category }}</strong></p>
+            </div>
+        {% empty %}
+            <p>Все още не сте създали обяви.</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

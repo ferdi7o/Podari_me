@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section id="gift-details">
+    <div class="details-container">
+        <img src="{{ gift.image_url }}" alt="{{ gift.title }}">
+        <h1>{{ gift.title }}</h1>
+        <p class="category">Категория: {{ gift.category }}</p>
+        <p class="description">{{ gift.description }}</p>
+
+        <div class="tags">
+            {% for tag in gift.tags.all %}
+                <span class="tag">#{{ tag.name }}</span>
+            {% endfor %}
+        </div>
+
+        <div class="gift-actions">
+            <a href="{% url 'gift-edit' gift.pk %}" class="btn-edit">Редактирай</a>
+            <a href="{% url 'gift-delete' gift.pk %}" class="btn-delete">Изтрий</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

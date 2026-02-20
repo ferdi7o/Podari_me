@@ -1,0 +1,12 @@
+<nav>
+    <a href="{% url 'home' %}">Подари Ме!</a>
+    <ul>
+        {% if profile %}
+            <li><a href="">Обяви</a></li>
+            <li><a href="">Създай Обява</a></li>
+            <li><a href="">Моят профил</a></li>
+        {% else %}
+            <li><a href="">Създай Профил</a></li>
+        {% endif %}
+    </ul>
+</nav>

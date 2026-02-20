@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div style="text-align: center; padding: 50px;">
+    <h1>404 - Няма намерена страница!</h1>
+    <p>Възможно е обявата да е изтрита или вече не се съществува</p>
+    <a href="{% url 'home' %}">Върна се на Главна Страница</a>
+</div>
+{% endblock %}

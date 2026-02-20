@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section id="dashboard">
+    <h1>Обяви</h1>
+    <div class="gift-list">
+        {% for gift in gifts %}
+            <div class="gift-card">
+                <img src="{{ gift.image_url }}" alt="{{ gift.title }}">
+                <h3>{{ gift.title }}</h3>
+                <p>{{ gift.category }}</p>
+
+                {% if gift.status_gift %}
+                    <span class="status-badge-done">Подарен</span>
+                {% else %}
+                    <a href="{% url 'gift-details' gift.pk %}" class="btn">Детайли</a>
+                {% endif %}
+            </div>
+        {% empty %}
+            <p>Все още няма създадени обяви. Създай първия ти!</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}
