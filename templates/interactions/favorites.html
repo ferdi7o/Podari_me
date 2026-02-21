@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Моите Любими Обяви</h1>
+
+    <div class="row">
+        {% for gift in fav_gifts %}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <img src="{{ gift.image_url }}" class="card-img-top" alt="{{ gift.title }}" style="height: 200px; object-fit: cover;">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ gift.title }}</h5>
+                        <p class="card-text text-muted">{{ gift.city }}</p>
+                        <a href="{% url 'gift-details' gift.pk %}" class="btn btn-primary">Виж детайли</a>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <div class="col-12 text-center mt-5">
+                <div class="alert alert-info">
+                    <h3>Все още нямате добавени любими обяви.</h3>
+                    <p>Разгледайте обявите и харесайте нещо!</p>
+                    <a href="{% url 'dashboard' %}" class="btn btn-success mt-3">Към обявите</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

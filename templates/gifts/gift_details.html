@@ -33,6 +33,10 @@
                             {% endif %}
                             <a href="{% url 'gift-edit' gift.pk %}" class="btn btn-warning">Редактирай</a>
                             <a href="{% url 'gift-delete' gift.pk %}" class="btn btn-danger">Изтрий</a>
+                            <a href="{% url 'interactions:toggle-favorite' gift.id %}"
+                               class="btn {% if is_favorite %}btn-danger{% else %}btn-outline-danger{% endif %}">
+                                {% if is_favorite %}❤️ В Любими{% else %}🤍 Добави на Любими{% endif %}
+                            </a>
                         {% else %}
                             <button class="btn btn-secondary" disabled>Тази обява не е ваша</button>
                         {% endif %}

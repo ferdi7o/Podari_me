@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
+
+from interactions.models import Favorite
 from .forms import GiftCreateForm
 from .models import Gift, Tag
 from accounts.models import Profile
@@ -56,9 +58,16 @@ class GiftDetailView(View):
         if not current_profile:
             return redirect('profile-create')
 
+        is_favorite = False
+        if current_profile:
+            fav_list = Favorite.objects.filter(user_profile=current_profile).first()
+            if fav_list and gift in fav_list.gifts.all():
+                is_favorite = True
+
         context = {
             'gift': gift,
             'profile': current_profile,
+            'is_favorite': is_favorite
         }
         return render(request, 'gifts/gift_details.html', context)
 
@@ -98,3 +107,19 @@ def mark_as_gifted(request, pk):
     gift.status_gift = True
     gift.save()
     return redirect('gift-details', pk=pk)
+
+
+def gift_details(request, pk):
+    gift = get_object_or_404(Gift, pk=pk)
+    profile = Profile.objects.first()
+
+    is_favorite = False
+    if profile:
+        favorite_obj = Favorite.objects.filter(user_profile=profile).first()
+        if favorite_obj and gift in favorite_obj.gifts.all():
+            is_favorite = True
+
+    return render(request, 'gifts/gift_details.html', {
+        'gift': gift,
+        'is_favorite': is_favorite,
+    })
