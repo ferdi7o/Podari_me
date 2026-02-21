@@ -2,14 +2,24 @@ from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render, redirect
 from django.views import View
 
+from accounts.forms import ProfileCreateForm
 from accounts.models import Profile
 
 
 class ProfileCreateView(View):
-    def get(self, request: HttpRequest) -> HttpResponse:
+    def get(self, request):
+        # Eğer profil varsa direkt ana sayfaya at (sınavda 1 profil sınırı varmış gibi)
         if Profile.objects.exists():
-            return redirect('profile-details')
-        return render(request, 'accounts/profile-create.html')
+            return redirect('home')
+        form = ProfileCreateForm()
+        return render(request, 'accounts/profile-create.html', {'form': form})
+
+    def post(self, request):
+        form = ProfileCreateForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('home') # Kayıttan sonra ana sayfaya
+        return render(request, 'accounts/profile-create.html', {'form': form})
 
 
 class ProfileDetailView(View):
