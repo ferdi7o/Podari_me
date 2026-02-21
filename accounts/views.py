@@ -8,7 +8,6 @@ from accounts.models import Profile
 
 class ProfileCreateView(View):
     def get(self, request):
-        # Eğer profil varsa direkt ana sayfaya at (sınavda 1 profil sınırı varmış gibi)
         if Profile.objects.exists():
             return redirect('home')
         form = ProfileCreateForm()
@@ -18,7 +17,7 @@ class ProfileCreateView(View):
         form = ProfileCreateForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('home') # Kayıttan sonra ana sayfaya
+            return redirect('home')
         return render(request, 'accounts/profile-create.html', {'form': form})
 
 
