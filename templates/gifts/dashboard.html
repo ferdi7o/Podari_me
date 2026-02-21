@@ -1,8 +1,25 @@
 {% extends 'base.html' %}
 
+
 {% block content %}
 <div class="container mt-4">
     <h1 class="mb-4 text-center">Обяви</h1>
+
+{% if selected_tag %}
+    <div class="filter-info text-center mb-3">
+        <span class="badge bg-warning text-dark p-2">
+            Филтрирано по: {{ selected_tag }}
+            <a href="{% url 'dashboard' %}" class="text-dark ms-2" style="text-decoration: none;">&times;</a>
+        </span>
+    </div>
+{% endif %}
+
+{% if selected_tag or selected_cat %}
+    <div class="filter-info">
+        <p>Филтрирано по: <strong>{{ selected_tag }}{{ selected_cat }}</strong></p>
+        <a href="{% url 'dashboard' %}" class="btn-clear">Изчисти филтрите (Filtreleri Temizle)</a>
+    </div>
+{% endif %}
     <div class="row row-cols-1 row-cols-md-3 g-4">
         {% for gift in gifts %}
             <div class="col">

@@ -34,6 +34,7 @@ class ProfileDetailView(View):
         return render(request, 'accounts/profile-details.html', context)
 
 
+
 class ProfileEditView(View):
     def get(self, request: HttpRequest) -> HttpResponse:
         profile = Profile.objects.first()

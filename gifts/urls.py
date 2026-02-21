@@ -7,4 +7,5 @@ urlpatterns = [
     path('details/<int:pk>/', views.GiftDetailView.as_view(), name='gift-details'),
     path('edit/<int:pk>/', views.GiftEditView.as_view(), name='gift-edit'),
     path('delete/<int:pk>/', views.GiftDeleteView.as_view(), name='gift-delete'),
+    path('<int:pk>/mark-gifted/', views.mark_as_gifted, name='mark-as-gifted')
 ]

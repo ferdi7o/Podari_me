@@ -38,7 +38,6 @@ class Gift(models.Model):
     category = models.CharField(max_length=30, choices=TYPE_CHOICES)
     image_url = models.URLField()
     owner = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='gifts')
-    tags = models.ManyToManyField(Tag, blank=True)
     status_gift = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
 
