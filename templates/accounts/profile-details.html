@@ -17,6 +17,17 @@
                         </div>
                     {% endif %}
 
+                    <div class="row">
+                <div class="col-6 border-end">
+                    <h3>{{ gifts_count }}</h3>
+                    <p>Обяви</p>
+                </div>
+                <div class="col-6">
+                    <h3>{{ gifted_count }}</h3>
+                    <p>Подарени</p>
+                </div>
+            </div>
+
                     <h3 class="card-title">{{ profile.first_name }} {{ profile.last_name }}</h3>
                     <p class="card-text text-muted">{{ profile.city }}</p>
                     <p class="card-text"><i class="bi bi-envelope"></i> {{ profile.email }}</p>

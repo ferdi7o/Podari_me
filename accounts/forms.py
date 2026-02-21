@@ -29,3 +29,21 @@ class ProfileCreateForm(forms.ModelForm):
                 'max_length': "Името е твърде дълго (макс. 20 символа).",
             }
         }
+
+
+
+class ProfileEditForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['first_name', 'last_name', 'email', 'city', 'profile_picture']
+        labels = {
+            'first_name': 'Име',
+            'last_name': 'Фамилия',
+            'email': 'Имейл (не може да се променя)',
+            'city': 'Град',
+            'profile_picture': 'URL на снимка',
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['email'].widget.attrs['readonly'] = True

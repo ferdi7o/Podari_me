@@ -2,7 +2,7 @@ from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render, redirect
 from django.views import View
 
-from accounts.forms import ProfileCreateForm
+from accounts.forms import ProfileCreateForm, ProfileEditForm
 from accounts.models import Profile
 
 
@@ -22,25 +22,41 @@ class ProfileCreateView(View):
 
 
 class ProfileDetailView(View):
-    def get(self, request: HttpRequest) -> HttpResponse:
+    def get(self, request):
         profile = Profile.objects.first()
         if not profile:
             return redirect('profile-create')
 
+        all_gifts = profile.gifts.all()
+        gifts_count = all_gifts.count()
+        gifted_count = all_gifts.filter(status_gift=True).count()
+
         context = {
             'profile': profile,
-            'gifts_count': profile.gifts.count()
+            'gifts_count': gifts_count,
+            'gifted_count': gifted_count,
         }
         return render(request, 'accounts/profile-details.html', context)
 
 
-
 class ProfileEditView(View):
-    def get(self, request: HttpRequest) -> HttpResponse:
+    def get(self, request):
         profile = Profile.objects.first()
         if not profile:
             return redirect('profile-create')
-        return render(request, 'accounts/profile-edit.html', {'profile': profile})
+
+        form = ProfileEditForm(instance=profile)
+        return render(request, 'accounts/profile-edit.html', {'form': form})
+
+    def post(self, request):
+        profile = Profile.objects.first()
+        form = ProfileEditForm(request.POST, instance=profile)
+
+        if form.is_valid():
+            form.save()
+            return redirect('profile-details')
+
+        return render(request, 'accounts/profile-edit.html', {'form': form})
 
 
 class ProfileDeleteView(View):
